@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/njr11/source/ruby/objects-on-rails/bloog'
+let g:netrw_dirhist_2='/Users/njr11/source/ruby/objects-on-rails/bloog/spec'
+let g:netrw_dirhist_3='/Users/njr11/source/ruby/objects-on-rails/bloog/spec/models'
+let g:netrw_dirhist_4='/Users/njr11/source/ruby/mendicant-university/turbo-trainer'
+let g:netrw_dirhist_5='/Users/njr11/source/ruby/objects-on-rails/bloog'
+let g:netrw_dirhist_6='/Users/njr11/source/ruby/objects-on-rails/blog_study_group'
