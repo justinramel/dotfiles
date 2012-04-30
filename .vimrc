@@ -191,12 +191,16 @@ function! RunTests(filename)
     if match(a:filename, '\.feature$') != -1
         exec ":!script/features " . a:filename
     else
-        if filereadable("script/test")
+        if filereadable("script/test")          " Run test script if it exists
             exec ":!script/test " . a:filename
-        elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
-        else
-            exec ":!rspec --color " . a:filename
+        elseif a:filename == ''                 " Run all tests
+            exec ":!rake test"
+        elseif filereadable("Gemfile")          " Run single test via bundle
+            exec ":!ruby -rminitest/pride " . a:filename
+            "exec ":!bundle exec rspec --color " . a:filename
+        else                                    " Run single test
+            exec ":!ruby -rminitest/pride " . a:filename
+            "exec ":!rspec --color " . a:filename
         end
     end
 endfunction
