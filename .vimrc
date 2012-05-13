@@ -29,6 +29,9 @@ set shiftwidth=2      " auto-indent amount when using cindent, >>, <<
 set autoindent        " uses the indent from the previous line
 set hidden            " allows hidding of buffers even when changed
 
+" backspace past the start of edit, autoindenting, and even start of the line
+set backspace=start,indent,eol
+
 " search settings
 set showmatch
 set incsearch
@@ -38,6 +41,10 @@ set ignorecase smartcase
 
 " map command t to leader f
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+
+" map command p to leader f
+"map <leader>f :CtrlP<cr>
+"let g:ctrlp_working_path_mode = 1
 
 " quickly alternate between files
 nnoremap <leader><leader> <c-^>
@@ -62,6 +69,10 @@ set showmode
 " clear the search buffer when hitting return
 :nnoremap <CR> :nohlsearch<cr>
 
+" mappings to paste and reformat/reindent
+:nnoremap <Esc>P  P'[v']=
+:nnoremap <Esc>p  p'[v']=
+
 " custom autocmds
 augroup vimrcEx
   " clear all autocmds in the group
@@ -77,6 +88,12 @@ augroup END
 
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
+
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
