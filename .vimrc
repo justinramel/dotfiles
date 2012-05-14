@@ -5,6 +5,10 @@ let mapleader = " "   " redefine leader from default backslash
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+if has('gui_running') 
+  set guifont=Inconsolata\ 16
+endif 
+
 colorscheme Tomorrow-Night
 syntax enable
 
@@ -83,7 +87,7 @@ augroup vimrcEx
                 \ endif
 augroup END
 
-"autocmd BufWritePre *.rb :%s/\s\+$//e " remove whitespace
+autocmd BufWritePre *.rb :%s/\s\+$//e " remove whitespace
 
 " misc key maps
 
