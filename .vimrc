@@ -5,10 +5,7 @@ let mapleader = " "   " redefine leader from default backslash
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" solarize!
-set term=xterm-256color
-set background=dark
-colorscheme solarized
+colorscheme Tomorrow-Night
 syntax enable
 
 set history=10000     " remember more commands and search history
@@ -40,11 +37,13 @@ set hlsearch
 set ignorecase smartcase
 
 " map command t to leader f
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+" map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 
 " map command p to leader f
-"map <leader>f :CtrlP<cr>
-"let g:ctrlp_working_path_mode = 1
+map <leader>f :CtrlP .<cr>
+let g:ctrlp_working_path_mode = 2
+let g:ctrlp_dotfiles = 0
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*build/*,*resources/*
 
 " quickly alternate between files
 nnoremap <leader><leader> <c-^>
@@ -84,6 +83,8 @@ augroup vimrcEx
                 \ endif
 augroup END
 
+"autocmd BufWritePre *.rb :%s/\s\+$//e " remove whitespace
+
 " misc key maps
 
 " Insert a hash rocket with <c-l>
@@ -93,7 +94,7 @@ imap <c-l> <space>=><space>
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>v :edit $MYVIMRC<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
