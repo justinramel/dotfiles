@@ -30,6 +30,9 @@ set shiftwidth=2      " auto-indent amount when using cindent, >>, <<
 set autoindent        " uses the indent from the previous line
 set hidden            " allows hidding of buffers even when changed
 
+set wildmode=longest,list,full "code completion
+set wildmenu
+
 " backspace past the start of edit, autoindenting, and even start of the line
 set backspace=start,indent,eol
 
