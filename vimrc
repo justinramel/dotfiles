@@ -115,23 +115,6 @@ nmap <leader>v :edit $MYVIMRC<CR>
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 "inoremap <s-tab> <c-n>
 
-function! SuperCleverTab()
-    if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-        return "\<Tab>"
-    else
-        if &omnifunc != ''
-            return "\<C-X>\<C-O>"
-        elseif &dictionary != ''
-            return "\<C-K>"
-        else
-            return "\<C-N>"
-        endif
-    endif
-endfunction
-
-inoremap <Tab> <C-R>=SuperCleverTab()<cr>
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -278,6 +261,7 @@ ino jj <esc>
 cno jj <c-c>
 
 " Fugitive {{{
+nnoremap <silent> <leader>gs :Git add .<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
