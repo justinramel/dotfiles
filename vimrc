@@ -27,6 +27,7 @@ Bundle 'repeat.vim'
 Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
 Bundle 'ack.vim'
+Bundle 'YankRing.vim'
 
 " syntastic settings
 let g:syntastic_check_on_open=1       " check syntax on load
@@ -139,7 +140,7 @@ set pastetoggle=<F2>
 set showmode
 
 " clear the search buffer when hitting return
-:nnoremap <CR> :nohlsearch<cr>
+:nnoremap <cr> :nohlsearch<cr>
 
 " mappings to paste and reformat/reindent
 :nnoremap <Esc>p  p'[v']=
@@ -148,7 +149,7 @@ set showmode
 augroup vimrcEx
   " clear all autocmds in the group
   autocmd!
-  " Jump to last cursor position unless it's invalid or in an event handler
+  " Jump to last cursor position when re-opening a file
     autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
             \   exe "normal g`\"" |
@@ -327,6 +328,7 @@ nnoremap <leader>s :ScratchOpen<cr>
 inoremap jj <esc>
 cnoremap jj <c-c>
 inoremap <esc> <nop>
+inoremap ^[ <nop>
 
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Git add .<CR>
@@ -340,15 +342,13 @@ nnoremap <silent> <leader>dg :diffget<CR>
 nnoremap <silent> <leader>dp :diffput<CR>
 "}}}
 
-"if exists(":Tabularize")
-  "nmap <Leader>a= :Tabularize /=<CR>
-  "vmap <Leader>a= :Tabularize /=<CR>
-  "nmap <Leader>a: :Tabularize /:\zs<CR>
-  "vmap <Leader>a: :Tabularize /:\zs<CR>
-"endif
-
 let g:SuperTabDefaultCompletionType = "context"
 
-nmap <F8> :TagbarToggle<CR>
-
+" on saving coffee files auto generate js
 au BufWritePost *.coffee silent CoffeeMake!
+
+" write all files on losing focus
+au FocusLost * :wa
+
+nnoremap <silent> <F3> :YRShow<cr>
+inoremap <silent> <F3> <ESC>:YRShow<cr>
