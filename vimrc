@@ -20,12 +20,13 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'endwise.vim'
-Bundle 'fugitive.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'Tabular'
 Bundle 'commentary.vim'
 Bundle 'repeat.vim'
 Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
+Bundle 'ack.vim'
 
 " syntastic settings
 let g:syntastic_check_on_open=1       " check syntax on load
