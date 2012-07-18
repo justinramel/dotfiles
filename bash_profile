@@ -7,3 +7,9 @@ alias e="vim ."
 export EDITOR='vim -w'
 alias tmux="TERM=screen-256color-bce tmux"
 export TERM=xterm-256color
+MAIL=/var/spool/mail/njr11 && export MAIL
+
+. ~/dotfiles/z/z.sh
+function precmd () {
+  z --add "$(pwd -P)"
+}

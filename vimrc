@@ -1,15 +1,57 @@
-set nocompatible      " use vim defaults
-let mapleader = " "   " redefine leader from default backslash
+set nocompatible        " use vim defaults
+filetype off            " required for vundle!
 
-" plugin manager
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-if has('gui_running') 
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+" my bundles
+Bundle 'kien/ctrlp.vim'
+Bundle 'widox/vim-buffer-explorer-plugin'
+Bundle 'xolox/vim-easytags'
+Bundle 'ervandew/matchem'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'kana/vim-scratch'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'msanders/snipmate.vim'
+Bundle 'ervandew/supertab'
+Bundle 'scrooloose/syntastic'
+Bundle 'endwise.vim'
+Bundle 'fugitive.vim'
+Bundle 'Tabular'
+Bundle 'commentary.vim'
+Bundle 'repeat.vim'
+Bundle 'vim-coffee-script'
+Bundle 'surround.vim'
+
+" syntastic settings
+let g:syntastic_check_on_open=1       " check syntax on load
+let g:syntastic_echo_current_error=1  " echo error to command
+let g:syntastic_enable_signs=1        " show in document error signs
+let g:syntastic_error_symbol='✗'      " error symbol
+let g:syntastic_warning_symbol='⚠'    " warning symbol
+let g:syntastic_enable_highlighting=0 " higlight errors
+let g:syntastic_quiet_warnings=0      " show warning messages
+
+" tabular settings
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+
+" enable file type detection.
+filetype plugin indent on
+
+let mapleader = " "     " redefine leader from default backslash
+
+if has('gui_running')
   set guifont=Inconsolata\ 16
-endif 
+endif
 
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Bright
 syntax enable
 
 set history=10000     " remember more commands and search history
@@ -29,7 +71,7 @@ set softtabstop=2     " tab conversion to number of spaces
 set shiftwidth=2      " auto-indent amount when using cindent, >>, <<
 set autoindent        " uses the indent from the previous line
 set hidden            " allows hidding of buffers even when changed
-
+set clipboard=unnamed " allow copy/paste buffer to work with system clipboard
 set wildmode=longest,list,full "code completion
 set wildmenu
 
@@ -40,11 +82,36 @@ set backspace=start,indent,eol
 set showmatch
 set incsearch
 set hlsearch
-"make searches case-sensitive only if they contain upper-case characters
+" make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 
-" map command t to leader f
-" map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+set noesckeys
+
+let g:Powerline_symbols = 'fancy'
+
+nnoremap <leader>wv :vsplit<cr><C-w>v<C-w>l " open a new vertical split and switch to it
+nnoremap <leader>wh :split<cr><C-w>j        " open a new horizontal split and switch to it
+
+" abbreviations
+iabbrev ssig -- <cr>Justin Ramel<cr>justin.ramel@gmail.com
+
+" surround word with "
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+" surround word with '
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
+" move between windows using ctrl + hjkl
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+nnoremap <leader>ww <C-w><C-w>       " switch windows
+nnoremap <leader>wx <C-w><C-x>       " exchange current window with neighbour
+nnoremap <leader>wq :wincmd q<cr>    " close window
+nnoremap <leader>wo :only<cr>        " close all but current window
+
+nnoremap <leader>a :Ack -i 
 
 " map command p to leader f
 map <leader>f :CtrlP .<cr>
@@ -56,7 +123,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*build/*,*resources/*
 nnoremap <leader><leader> <c-^>
 
 " highlight tabs and trailing spaces
-set list listchars=tab:→\ ,trail:·
+set list listchars=tab:▸\ ,trail:·
 set list
 
 " no backup or swap file
@@ -64,8 +131,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" enable file type detection.
-filetype plugin indent on
 
 " allow paste from sytem clipboard without formating
 nnoremap <F2> :set invpaste paste?<CR>
@@ -76,7 +141,6 @@ set showmode
 :nnoremap <CR> :nohlsearch<cr>
 
 " mappings to paste and reformat/reindent
-:nnoremap <Esc>P  P'[v']=
 :nnoremap <Esc>p  p'[v']=
 
 " custom autocmds
@@ -93,27 +157,23 @@ augroup END
 autocmd BufWritePre *.rb :%s/\s\+$//e " remove whitespace
 
 " misc key maps
-
 " Insert a hash rocket with <c-l>
-imap <c-l> <space>=><space>
+inoremap <c-l> <space>=><space>
 
-" Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-nmap <leader>v :edit $MYVIMRC<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "function! InsertTabWrapper()
-"  let col = col('.') - 1
-"  if !col || getline('.')[col - 1] !~ '\k'
-"    return "\<tab>"
-"  else
-"    return "\<c-p>"
-"  endif
+  "let col = col('.') - 1
+  "if !col || getline('.')[col - 1] !~ '\k'
+    "return "\<tab>"
+  "else
+    "return "\<c-p>"
+  "endif
 "endfunction
 "inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 "inoremap <s-tab> <c-n>
@@ -195,7 +255,7 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
-map <leader>a :call RunTests('')<cr>
+"map <leader>a :call RunTests('')<cr>
 
 function! RunTestFile(...)
     if a:0
@@ -251,17 +311,21 @@ function! RunTests(filename)
 endfunction
 
 " Run rake
-nnoremap <leader>r :!rake<cr>
+map <leader>r :call SaveAndRake()<cr>
 
-" Buffer Juggler
-nnoremap <leader>b :LustyJuggler<cr>
+function! SaveAndRake() 
+  :w
+  :!rake
+endfunction
 
 " Scratch Pad
-nnoremap <leader>s :Scratch<cr>
+let g:scratch_show_command='hide buffer'
+nnoremap <leader>s :ScratchOpen<cr>
 
-" Map jj to esc
-ino jj <esc>
-cno jj <c-c>
+" Map jk to esc
+inoremap jj <esc>
+cnoremap jj <c-c>
+inoremap <esc> <nop>
 
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Git add .<CR>
@@ -274,3 +338,16 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>dg :diffget<CR>
 nnoremap <silent> <leader>dp :diffput<CR>
 "}}}
+
+"if exists(":Tabularize")
+  "nmap <Leader>a= :Tabularize /=<CR>
+  "vmap <Leader>a= :Tabularize /=<CR>
+  "nmap <Leader>a: :Tabularize /:\zs<CR>
+  "vmap <Leader>a: :Tabularize /:\zs<CR>
+"endif
+
+let g:SuperTabDefaultCompletionType = "context"
+
+nmap <F8> :TagbarToggle<CR>
+
+au BufWritePost *.coffee silent CoffeeMake!
