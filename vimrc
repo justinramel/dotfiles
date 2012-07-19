@@ -28,6 +28,7 @@ Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
 Bundle 'ack.vim'
 Bundle 'YankRing.vim'
+Bundle 'unimpaired.vim'
 
 " syntastic settings
 let g:syntastic_check_on_open=1       " check syntax on load
@@ -181,12 +182,33 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 "inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ARROW KEYS ARE UNACCEPTABLE
+" USEFUL REMAPPING OF ARROW KEYS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+" arrow keys on there own move between splits
+nnoremap <Up>        <C-W>k
+nnoremap <Down>      <C-W>j
+nnoremap <Left>      <C-W>h
+nnoremap <Right>     <C-W>l
+
+" shift + arrow to resize splits
+nnoremap <silent> <S-Up>   <C-w>+
+nnoremap <silent> <S-Down> <C-w>-
+nnoremap <silent> <S-Right> <C-w>>
+nnoremap <silent> <S-Left>  <C-w><
+
+" ctrl + arrow bubble line / lines up or down
+nmap <C-Up>   [e
+imap <C-Up>   <C-O><C-Up>
+vmap <C-Up>   [egv
+nmap <C-Down> ]e
+imap <C-Down> <C-O><C-Down>
+vmap <C-Down> ]egv
+
+" left/right indent with tab
+nmap <S-tab> <<
+vmap <S-tab> <gv
+nmap <tab>   >>
+vmap <tab>   >gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -324,11 +346,7 @@ endfunction
 let g:scratch_show_command='hide buffer'
 nnoremap <leader>s :ScratchOpen<cr>
 
-" Map jk to esc
 inoremap jj <esc>
-cnoremap jj <c-c>
-inoremap <esc> <nop>
-inoremap ^[ <nop>
 
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Git add .<CR>
