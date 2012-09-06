@@ -29,6 +29,8 @@ Bundle 'surround.vim'
 Bundle 'ack.vim'
 Bundle 'YankRing.vim'
 Bundle 'unimpaired.vim'
+Bundle 'benmills/vimux'
+Bundle 'vimwiki'
 
 " syntastic settings
 let g:syntastic_check_on_open=1       " check syntax on load
@@ -45,6 +47,13 @@ vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
 
+" vimux settings
+" don't create new windows re-use the nearest one
+let g:VimuxUseNearestPane = 1
+
+" vimwiki
+nmap <Leader>vw <Plug>VimwikiIndex
+
 " enable file type detection.
 filetype plugin indent on
 
@@ -56,6 +65,10 @@ endif
 
 colorscheme Tomorrow-Night-Bright
 syntax enable
+
+" reflow
+nnoremap Q gqap
+vnoremap Q gq
 
 set history=10000     " remember more commands and search history
 set title             " show title of the file in vim bar
@@ -103,16 +116,17 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 " surround word with '
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
+" vimwiki mappings
+nmap <Leader>ww <Plug>VimwikiIndex
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
+let g:vimwiki_hl_headers=1
+let g:vimwiki_hl_cb_checked=1
+
 " move between windows using ctrl + hjkl
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-
-nnoremap <leader>ww <C-w><C-w>       " switch windows
-nnoremap <leader>wx <C-w><C-x>       " exchange current window with neighbour
-nnoremap <leader>wq :wincmd q<cr>    " close window
-nnoremap <leader>wo :only<cr>        " close all but current window
 
 nnoremap <leader>a :Ack -i 
 
@@ -157,7 +171,7 @@ augroup vimrcEx
                 \ endif
 augroup END
 
-autocmd BufWritePre *.rb :%s/\s\+$//e " remove whitespace
+autocmd BufWritePre *.rb,*.js,*.markdown :%s/\s\+$//e " remove whitespace
 
 " misc key maps
 " Insert a hash rocket with <c-l>
@@ -338,8 +352,9 @@ endfunction
 map <leader>r :call SaveAndRake()<cr>
 
 function! SaveAndRake() 
-  :w
-  :!rake
+  :wa
+  :call VimuxRunCommand("rake")
+  " :!rake
 endfunction
 
 " Scratch Pad
