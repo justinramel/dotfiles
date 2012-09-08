@@ -31,6 +31,8 @@ Bundle 'YankRing.vim'
 Bundle 'unimpaired.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
+Bundle 'Markdown-syntax'
+Bundle 'golden-ratio'
 
 " syntastic settings
 let g:syntastic_check_on_open=1       " check syntax on load
@@ -382,3 +384,6 @@ au FocusLost * :wa
 
 nnoremap <silent> <F3> :YRShow<cr>
 inoremap <silent> <F3> <ESC>:YRShow<cr>
+
+" Yank ring
+nnoremap <silent> <leader>y :YRShow<CR>
