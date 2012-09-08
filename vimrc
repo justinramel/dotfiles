@@ -10,11 +10,11 @@ Bundle 'gmarik/vundle'
 
 " my bundles
 Bundle 'kien/ctrlp.vim'
+Bundle 'LustyJuggler'
 Bundle 'widox/vim-buffer-explorer-plugin'
 Bundle 'xolox/vim-easytags'
 Bundle 'ervandew/matchem'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'kana/vim-scratch'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ervandew/supertab'
@@ -63,7 +63,8 @@ if has('gui_running')
   set guifont=Inconsolata\ 16
 endif
 
-colorscheme Tomorrow-Night-Bright
+" colorscheme Tomorrow-Night-Bright
+colorscheme zenburn
 syntax enable
 
 " reflow
@@ -356,10 +357,6 @@ function! SaveAndRake()
   :call VimuxRunCommand("rake")
   " :!rake
 endfunction
-
-" Scratch Pad
-let g:scratch_show_command='hide buffer'
-nnoremap <leader>s :ScratchOpen<cr>
 
 inoremap jj <esc>
 
