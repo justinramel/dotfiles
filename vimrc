@@ -1,3 +1,7 @@
+if has("gui_win32")
+  let $HOME = 'c:\vim'
+endif
+
 set nocompatible        " use vim defaults
 filetype off            " required for vundle!
 
@@ -10,7 +14,6 @@ Bundle 'gmarik/vundle'
 
 " my bundles
 Bundle 'kien/ctrlp.vim'
-Bundle 'LustyJuggler'
 Bundle 'widox/vim-buffer-explorer-plugin'
 Bundle 'xolox/vim-easytags'
 Bundle 'ervandew/matchem'
@@ -35,11 +38,13 @@ Bundle 'Markdown-syntax'
 Bundle 'golden-ratio'
 
 " syntastic settings
+if !has("gui_win32")
+  let g:syntastic_error_symbol='✗'      " error symbol
+  let g:syntastic_warning_symbol='⚠'    " warning symbol
+endif
 let g:syntastic_check_on_open=1       " check syntax on load
 let g:syntastic_echo_current_error=1  " echo error to command
 let g:syntastic_enable_signs=1        " show in document error signs
-let g:syntastic_error_symbol='✗'      " error symbol
-let g:syntastic_warning_symbol='⚠'    " warning symbol
 let g:syntastic_enable_highlighting=0 " higlight errors
 let g:syntastic_quiet_warnings=0      " show warning messages
 
@@ -53,16 +58,18 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 " don't create new windows re-use the nearest one
 let g:VimuxUseNearestPane = 1
 
-" vimwiki
-nmap <Leader>vw <Plug>VimwikiIndex
-
 " enable file type detection.
 filetype plugin indent on
 
 let mapleader = " "     " redefine leader from default backslash
 
 if has('gui_running')
-  set guifont=Inconsolata\ 16
+  set guioptions=egmrt  " hide the gui menubar
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 16
+  elseif has("gui_win32")
+    set guifont=Inconsolata:h16
+  endif
 endif
 
 " colorscheme Tomorrow-Night-Bright
@@ -106,7 +113,11 @@ set ignorecase smartcase
 
 set noesckeys
 
-let g:Powerline_symbols = 'fancy'
+if has("gui_win32")
+  let g:Powerline_symbols = 'compatible'
+elseif has('gui_macvim')
+  let g:Powerline_symbols = 'fancy'
+endif
 
 nnoremap <leader>wv :vsplit<cr><C-w>v<C-w>l " open a new vertical split and switch to it
 nnoremap <leader>wh :split<cr><C-w>j        " open a new horizontal split and switch to it
@@ -120,8 +131,12 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
 " vimwiki mappings
+if has("gui_win32")
+  let g:vimwiki_list = [{'path': 'C:\Dropbox\vimwiki', 'auto_export': 1, 'path_html': 'C:\Dropbox\vimwiki_html'}]
+else
+  let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
+endif
 nmap <Leader>ww <Plug>VimwikiIndex
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
 let g:vimwiki_hl_headers=1
 let g:vimwiki_hl_cb_checked=1
 
@@ -143,8 +158,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*build/*,*resources/*
 nnoremap <leader><leader> <c-^>
 
 " highlight tabs and trailing spaces
-set list listchars=tab:▸\ ,trail:·
-set list
+if has("gui_win32")
+  set list listchars=tab:\>\�,trail:�
+else
+  set list listchars=tab:▸\ ,trail:·
+endif
 
 " no backup or swap file
 set nobackup
