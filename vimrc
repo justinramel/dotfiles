@@ -30,7 +30,6 @@ Bundle 'repeat.vim'
 Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
 Bundle 'ack.vim'
-Bundle 'YankRing.vim'
 Bundle 'unimpaired.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
@@ -416,6 +415,3 @@ au FocusLost * :wa
 
 nnoremap <silent> <F3> :YRShow<cr>
 inoremap <silent> <F3> <ESC>:YRShow<cr>
-
-" Yank ring
-nnoremap <silent> <leader>y :YRShow<CR>
