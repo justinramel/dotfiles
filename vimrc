@@ -100,6 +100,9 @@ set hidden            " allows hidding of buffers even when changed
 set clipboard=unnamed " allow copy/paste buffer to work with system clipboard
 set wildmode=longest,list,full "code completion
 set wildmenu
+set noerrorbells visualbell t_vb= " switch off beeping and flashing on error
+set splitbelow
+set splitright
 
 " backspace past the start of edit, autoindenting, and even start of the line
 set backspace=start,indent,eol
@@ -119,7 +122,7 @@ elseif has('gui_macvim')
   let g:Powerline_symbols = 'fancy'
 endif
 
-nnoremap <leader>wv :vsplit<cr><C-w>v<C-w>l " open a new vertical split and switch to it
+nnoremap <leader>wv :vsplit<cr><C-w>l " open a new vertical split and switch to it
 nnoremap <leader>wh :split<cr><C-w>j        " open a new horizontal split and switch to it
 
 " abbreviations
@@ -132,7 +135,7 @@ nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
 " vimwiki mappings
 if has("gui_win32")
-  let g:vimwiki_list = [{'path': 'C:\Dropbox\vimwiki', 'auto_export': 1, 'path_html': 'C:\Dropbox\vimwiki_html'}]
+  let g:vimwiki_list = [{'path': 'C:\Dropbox\vimwiki\', 'auto_export': 1, 'path_html': 'C:\Dropbox\vimwiki_html'}]
 else
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
 endif
@@ -198,8 +201,19 @@ autocmd BufWritePre *.rb,*.js,*.markdown :%s/\s\+$//e " remove whitespace
 " Insert a hash rocket with <c-l>
 inoremap <c-l> <space>=><space>
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+if has("gui_win32")
+  nnoremap <leader>ev :vsplit c:\vim\dotfiles\vimrc<cr>
+else
+  nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+endif
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Spelling
+nmap <silent> <leader>s :set spell!<CR>
+set spelllang=en_gb " Set region to British English
+set spellfile=~/.vim/spell/en.utf-8.add
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
