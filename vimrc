@@ -413,5 +413,6 @@ au BufWritePost *.coffee silent CoffeeMake!
 " write all files on losing focus
 au FocusLost * :wa
 
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
+" insert todays date
+:nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
+:inoremap <F5> <C-R>=strftime("%a %d %b %Y")<CR>
