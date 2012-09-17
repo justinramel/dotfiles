@@ -33,8 +33,8 @@ Bundle 'ack.vim'
 Bundle 'unimpaired.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
-Bundle 'Markdown-syntax'
 Bundle 'golden-ratio'
+Bundle 'Solarized'
 
 " syntastic settings
 if !has("gui_win32")
@@ -71,9 +71,11 @@ if has('gui_running')
   endif
 endif
 
+syntax enable
+set background=dark
 " colorscheme Tomorrow-Night-Bright
 colorscheme zenburn
-syntax enable
+" colorscheme solarized
 
 " reflow
 nnoremap Q gqap
@@ -278,8 +280,7 @@ map <leader>n :call RenameFile()<cr>
 nnoremap <leader>. :call OpenTestAlternate()<cr>
 
 function! OpenTestAlternate()
-  "let new_file = AlternateForCurrentFile()
-  let new_file = AlternateForRubyMotion()
+  let new_file = AlternateForCurrentFile()
   exec ':e ' . new_file
 endfunction
 
@@ -301,23 +302,6 @@ function! AlternateForCurrentFile()
     if in_app
       let new_file = 'app/' . new_file
     end
-  endif
-  return new_file
-endfunction
-
-function! AlternateForRubyMotion()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '_spec/') != -1
-  let going_to_spec = !in_spec
-  if going_to_spec
-    let new_file = substitute(new_file, '^app/', '', '')
-    let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
-    let new_file = 'isolated_spec/' . new_file
-  else
-    let new_file = substitute(new_file, '^isolated_spec/', 'app/', '')
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
   endif
   return new_file
 endfunction
@@ -382,15 +366,6 @@ function! RunTests(filename)
     end
 endfunction
 
-" Run rake
-map <leader>r :call SaveAndRake()<cr>
-
-function! SaveAndRake() 
-  :wa
-  :call VimuxRunCommand("rake")
-  " :!rake
-endfunction
-
 inoremap jj <esc>
 
 " Fugitive {{{
@@ -416,3 +391,7 @@ au FocusLost * :wa
 " insert todays date
 :nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
 :inoremap <F5> <C-R>=strftime("%a %d %b %Y")<CR>
+
+if filereadable(".vimrc.local")
+  so .vimrc.local
+endif

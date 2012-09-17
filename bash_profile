@@ -3,6 +3,7 @@
 source "$rvm_path/contrib/ps1_functions"
 ps1_set --prompt ∴
 export PATH=/usr/local/bin:$PATH:/Developer/usr/bin:~/source/mulberry/mulberry/mulberry/bin/
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 alias git=hub
 alias e='vim .'
 export EDITOR='vim -w'
