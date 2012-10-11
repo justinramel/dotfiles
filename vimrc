@@ -35,6 +35,8 @@ Bundle 'benmills/vimux'
 Bundle 'vimwiki'
 Bundle 'golden-ratio'
 Bundle 'Solarized'
+Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Commenter'
 
 " syntastic settings
 if !has("gui_win32")
@@ -384,9 +386,6 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " on saving coffee files auto generate js
 au BufWritePost *.coffee silent CoffeeMake!
-
-" write all files on losing focus
-au FocusLost * :wa
 
 " insert todays date
 :nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
