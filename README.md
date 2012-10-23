@@ -8,4 +8,10 @@ Includes git sub modules so clone with the sub modules parameter:
 
 Plugins are being handled with vundle so open vim and run the command:
 
+First install Vundle:
+
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+Then from within vim:
+
     :BundleInstall
