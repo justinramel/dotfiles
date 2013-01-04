@@ -1,3 +1,10 @@
+inoremap <esc> <nop>
+inoremap <C-i> <esc>
+inoremap jj <esc>
+inoremap jk <esc>
+inoremap kj <esc>
+inoremap kk <esc>
+
 if has("gui_win32")
   let $HOME = 'c:\vim'
 endif
@@ -18,23 +25,20 @@ Bundle 'widox/vim-buffer-explorer-plugin'
 Bundle 'xolox/vim-easytags'
 Bundle 'ervandew/matchem'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/matchit.zip'
+Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'endwise.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Tabular'
-Bundle 'commentary.vim'
 Bundle 'repeat.vim'
 Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
 Bundle 'ack.vim'
-Bundle 'unimpaired.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
-Bundle 'golden-ratio'
-Bundle 'Solarized'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 
@@ -75,9 +79,8 @@ endif
 
 syntax enable
 set background=dark
-" colorscheme Tomorrow-Night-Bright
-colorscheme zenburn
-" colorscheme solarized
+colorscheme Tomorrow-Night-Bright
+"colorscheme zenburn
 
 " reflow
 nnoremap Q gqap
@@ -106,6 +109,7 @@ set wildmenu
 set noerrorbells visualbell t_vb= " switch off beeping and flashing on error
 set splitbelow
 set splitright
+set so=5
 
 " backspace past the start of edit, autoindenting, and even start of the line
 set backspace=start,indent,eol
@@ -191,6 +195,9 @@ set showmode
 augroup vimrcEx
   " clear all autocmds in the group
   autocmd!
+  " reload .vimrc when it is changed
+  autocmd BufWritePost .vimrc source $MYVIMRC
+
   " Jump to last cursor position when re-opening a file
     autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -206,9 +213,9 @@ inoremap <c-l> <space>=><space>
 
 
 if has("gui_win32")
-  nnoremap <leader>ev :vsplit c:\vim\dotfiles\vimrc<cr>
+  nnoremap <leader>ev :e c:\vim\dotfiles\vimrc<cr>
 else
-  nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+  nnoremap <leader>ev :e $MYVIMRC<cr>
 endif
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -274,7 +281,7 @@ function! RenameFile()
     redraw!
   endif
 endfunction
-map <leader>n :call RenameFile()<cr>
+map <leader>rn :call RenameFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SWITCH BETWEEN TEST AND PRODUCTION CODE
@@ -368,8 +375,6 @@ function! RunTests(filename)
     end
 endfunction
 
-inoremap jj <esc>
-
 " Fugitive {{{
 nnoremap <silent> <leader>gs :Git add .<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -394,3 +399,56 @@ au BufWritePost *.coffee silent CoffeeMake!
 if filereadable(".vimrc.local")
   so .vimrc.local
 endif
+
+" remap for saves
+nmap <leader>w :w!<cr>
+
+" setting different shift widths
+map <leader>t2 :setlocal shiftwidth=2<cr>
+map <leader>t4 :setlocal shiftwidth=4<cr>
+map <leader>t8 :setlocal shiftwidth=4<cr>
+
+" Close the current buffer
+map <leader>bd :bdel<cr>
+
+" Close all the buffers
+map <leader>ba :bufdo bd!<cr>
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>
+
+" autocomplete common programming elements
+inoremap (( ()<esc>i
+inoremap [[ []<esc>i
+inoremap {{ {}<esc>i
+inoremap '' ''<esc>i
+inoremap "" ""<esc>i
+inoremap uu _
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDTreeChDirMode=2
+nnoremap <leader>n :NERDTree .<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vimux
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>rb :call RunVimTmuxCommand("clear; rspec " . bufname("%"))<CR>
+
+" Prompt for a command to run
+map <leader>rp :PromptVimTmuxCommand<CR>
+
+" Run last command executed by RunVimTmuxCommand
+map <leader>rl :RunLastVimTmuxCommand<CR>
+
+" Inspect runner pane
+map <leader>ri :InspectVimTmuxRunner<CR>
+
+" Close all other tmux panes in current window
+map <leader>rx :CloseVimTmuxPanes<CR>
+
+" Interrupt any command running in the runner pane
+map <leader>rs :InterruptVimTmuxRunner<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
