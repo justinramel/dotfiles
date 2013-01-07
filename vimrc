@@ -23,11 +23,10 @@ Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'widox/vim-buffer-explorer-plugin'
 Bundle 'xolox/vim-easytags'
-Bundle 'ervandew/matchem'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
@@ -452,3 +451,4 @@ map <leader>rx :CloseVimTmuxPanes<CR>
 " Interrupt any command running in the runner pane
 map <leader>rs :InterruptVimTmuxRunner<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <leader>ts :SPECSPLIT<CR>
