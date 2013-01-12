@@ -5,7 +5,7 @@ inoremap jk <esc>
 inoremap kj <esc>
 inoremap kk <esc>
 
-if has("gui_win32")
+if has("win32")
   let $HOME = 'c:\vim'
 endif
 
@@ -26,23 +26,22 @@ Bundle 'xolox/vim-easytags'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'ecomba/vim-ruby-refactoring'
-"Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'endwise.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'repeat.vim'
-Bundle 'vim-coffee-script'
 Bundle 'surround.vim'
 Bundle 'ack.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
+Bundle 'AndrewRadev/switch.vim'
 
 " syntastic settings
-if !has("gui_win32")
+if !has("win32")
   let g:syntastic_error_symbol='✗'      " error symbol
   let g:syntastic_warning_symbol='⚠'    " warning symbol
 endif
@@ -109,6 +108,7 @@ set noerrorbells visualbell t_vb= " switch off beeping and flashing on error
 set splitbelow
 set splitright
 set so=5
+set shortmess+=I
 
 " backspace past the start of edit, autoindenting, and even start of the line
 set backspace=start,indent,eol
@@ -122,14 +122,8 @@ set ignorecase smartcase
 
 set noesckeys
 
-if has("gui_win32")
-  let g:Powerline_symbols = 'compatible'
-elseif has('gui_macvim')
-  let g:Powerline_symbols = 'fancy'
-endif
-
 nnoremap <leader>wv :vsplit<cr><C-w>l " open a new vertical split and switch to it
-nnoremap <leader>wh :split<cr><C-w>j        " open a new horizontal split and switch to it
+nnoremap <leader>wh :split<cr><C-w>j  " open a new horizontal split and switch to it
 
 " abbreviations
 iabbrev ssig -- <cr>Justin Ramel<cr>justin.ramel@gmail.com
@@ -140,7 +134,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 
 " vimwiki mappings
-if has("gui_win32")
+if has("win32")
   let g:vimwiki_list = [{'path': 'C:\Dropbox\vimwiki\', 'auto_export': 1, 'path_html': 'C:\Dropbox\vimwiki_html'}]
 else
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_export': 1}]
@@ -167,7 +161,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*build/*,*resources/*
 nnoremap <leader><leader> <c-^>
 
 " highlight tabs and trailing spaces
-if has("gui_win32")
+if has("win32")
   set list listchars=tab:\>\�,trail:�
 else
   set list listchars=tab:▸\ ,trail:·
@@ -211,7 +205,7 @@ autocmd BufWritePre *.rb,*.js,*.markdown :%s/\s\+$//e " remove whitespace
 inoremap <c-l> <space>=><space>
 
 
-if has("gui_win32")
+if has("win32")
   nnoremap <leader>ev :e c:\vim\dotfiles\vimrc<cr>
 else
   nnoremap <leader>ev :e $MYVIMRC<cr>
@@ -423,6 +417,7 @@ inoremap {{ {}<esc>i
 inoremap '' ''<esc>i
 inoremap "" ""<esc>i
 inoremap uu _
+inoremap ## #{}<esc>i
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
@@ -452,3 +447,4 @@ map <leader>rx :CloseVimTmuxPanes<CR>
 map <leader>rs :InterruptVimTmuxRunner<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <leader>ts :SPECSPLIT<CR>
+noremap - :Switch<cr>
