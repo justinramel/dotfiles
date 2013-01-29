@@ -10,14 +10,16 @@ function! s:GetSpecFile(file)
   if match(a:file, '_spec\.rb$') != -1
     return a:file
   else
-    return substitute(substitute(a:file, ".rb$", "_spec.rb", ""), '^lib/', 'spec/', '')
+    let spec = substitute(substitute(a:file, ".rb$", "_spec.rb", ""), '^lib/', 'spec/lib/', '')
+    return substitute(spec, "spec/lib/", "spec/", "")
   endif
 endfunction
 
 " Return the source filename
 function! s:GetSourceFile(file)
   if match(a:file, '_spec\.rb$') != -1
-    return substitute(substitute(a:file, "_spec.rb$", ".rb", ""), '^spec/', 'lib/', '')
+    let source = substitute(substitute(a:file, "_spec.rb$", ".rb", ""), '^spec/', 'lib/', '')
+    return substitute(source, "lib/lib/", "lib/", "")
   else
     return a:file
   endif

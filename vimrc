@@ -369,7 +369,7 @@ function! RunTests(filename)
 endfunction
 
 " Fugitive {{{
-nnoremap <silent> <leader>gs :Git add .<CR>
+nnoremap <silent> <leader>ga :Git add .<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
