@@ -78,7 +78,6 @@ endif
 syntax enable
 set background=dark
 colorscheme Tomorrow-Night-Bright
-"colorscheme zenburn
 
 " reflow
 nnoremap Q gqap
@@ -172,7 +171,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-
 " allow paste from sytem clipboard without formating
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -198,12 +196,11 @@ augroup vimrcEx
                 \ endif
 augroup END
 
-autocmd BufWritePre *.rb,*.js,*.markdown :%s/\s\+$//e " remove whitespace
+autocmd BufWritePre *.rb,*.js,*.markdown,*.java :%s/\s\+$//e " remove whitespace
 
 " misc key maps
 " Insert a hash rocket with <c-l>
 inoremap <c-l> <space>=><space>
-
 
 if has("win32")
   nnoremap <leader>ev :e c:\vim\dotfiles\vimrc<cr>
@@ -216,22 +213,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=en_gb " Set region to British English
 set spellfile=~/.vim/spell/en.utf-8.add
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"function! InsertTabWrapper()
-  "let col = col('.') - 1
-  "if !col || getline('.')[col - 1] !~ '\k'
-    "return "\<tab>"
-  "else
-    "return "\<c-p>"
-  "endif
-"endfunction
-"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-"inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " USEFUL REMAPPING OF ARROW KEYS
@@ -247,14 +228,6 @@ nnoremap <silent> <S-Up>   <C-w>+
 nnoremap <silent> <S-Down> <C-w>-
 nnoremap <silent> <S-Right> <C-w>>
 nnoremap <silent> <S-Left>  <C-w><
-
-" ctrl + arrow bubble line / lines up or down
-nmap <C-Up>   [e
-imap <C-Up>   <C-O><C-Up>
-vmap <C-Up>   [egv
-nmap <C-Down> ]e
-imap <C-Down> <C-O><C-Down>
-vmap <C-Down> ]egv
 
 " left/right indent with tab
 nmap <S-tab> <<
@@ -381,9 +354,6 @@ nnoremap <silent> <leader>dp :diffput<CR>
 "}}}
 
 let g:SuperTabDefaultCompletionType = "context"
-
-" on saving coffee files auto generate js
-au BufWritePost *.coffee silent CoffeeMake!
 
 " insert todays date
 :nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
