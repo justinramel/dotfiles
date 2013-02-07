@@ -15,3 +15,8 @@ First install Vundle:
 Then from within vim:
 
     :BundleInstall
+
+##Tmux
+
+Shortcut key ctrl + j
+
