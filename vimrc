@@ -33,22 +33,25 @@ Bundle 'endwise.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'repeat.vim'
 Bundle 'surround.vim'
-Bundle 'ack.vim'
+Bundle 'mileszs/ack.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
-Bundle 'The-NERD-tree'
+"Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
+"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/ListToggle'
+Bundle 'Lokaltog/vim-easymotion'
 
 " syntastic settings
 if !has("win32")
   let g:syntastic_error_symbol='✗'      " error symbol
   let g:syntastic_warning_symbol='⚠'    " warning symbol
 endif
-let g:syntastic_check_on_open=1       " check syntax on load
-let g:syntastic_echo_current_error=1  " echo error to command
-let g:syntastic_enable_signs=1        " show in document error signs
-let g:syntastic_enable_highlighting=0 " higlight errors
-let g:syntastic_quiet_warnings=0      " show warning messages
+"let g:syntastic_check_on_open=1       " check syntax on load
+"let g:syntastic_echo_current_error=1  " echo error to command
+"let g:syntastic_enable_signs=1        " show in document error signs
+"let g:syntastic_enable_highlighting=0 " higlight errors
+"let g:syntastic_quiet_warnings=0      " show warning messages
 
 " tabular settings
 nmap <Leader>a= :Tabularize /=<CR>
@@ -392,7 +395,7 @@ inoremap ## #{}<esc>i
 " => NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDTreeChDirMode=2
-nnoremap <leader>n :NERDTree .<CR>
+nnoremap <leader>n :e.<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -416,3 +419,9 @@ map <leader>rx :CloseVimTmuxPanes<CR>
 map <leader>rs :InterruptVimTmuxRunner<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <leader>ts :SPECSPLIT<CR>
+
+
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+
+let g:EasyMotion_leader_key = '<leader><leader>'
