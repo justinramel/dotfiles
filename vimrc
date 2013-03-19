@@ -1,9 +1,15 @@
 inoremap <esc> <nop>
-inoremap <C-i> <esc>
-inoremap jj <esc>
-inoremap jk <esc>
-inoremap kj <esc>
-inoremap kk <esc>
+inoremap <C-j> <esc>
+"inoremap jj <esc>
+"inoremap jk <esc>
+"inoremap kj <esc>
+"inoremap kk <esc>
+
+nnoremap <leader>vs :vsplit<cr><C-w>l " open a new vertical split and switch to it
+nnoremap <leader>hs :split<cr><C-w>j " open a new horizontial split and switch to it
+
+nnoremap <leader>one :on<cr>           " single page
+nnoremap <leader>two :vsplit<cr><C-w>l " split
 
 if has("win32")
   let $HOME = 'c:\vim'
@@ -36,28 +42,20 @@ Bundle 'surround.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'benmills/vimux'
 Bundle 'vimwiki'
-"Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'Valloric/ListToggle'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'sjl/vitality.vim'
 
 " syntastic settings
 if !has("win32")
   let g:syntastic_error_symbol='✗'      " error symbol
   let g:syntastic_warning_symbol='⚠'    " warning symbol
 endif
-"let g:syntastic_check_on_open=1       " check syntax on load
-"let g:syntastic_echo_current_error=1  " echo error to command
-"let g:syntastic_enable_signs=1        " show in document error signs
-"let g:syntastic_enable_highlighting=0 " higlight errors
-"let g:syntastic_quiet_warnings=0      " show warning messages
-
-" tabular settings
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
+let g:syntastic_check_on_open=1       " check syntax on load
+let g:syntastic_echo_current_error=1  " echo error to command
+let g:syntastic_enable_signs=1        " show in document error signs
+let g:syntastic_enable_highlighting=0 " higlight errors
+let g:syntastic_quiet_warnings=0      " show warning messages
 
 " vimux settings
 " don't create new windows re-use the nearest one
@@ -123,9 +121,6 @@ set ignorecase smartcase
 
 set noesckeys
 
-nnoremap <leader>wv :vsplit<cr><C-w>l " open a new vertical split and switch to it
-nnoremap <leader>wh :split<cr><C-w>j  " open a new horizontal split and switch to it
-
 " abbreviations
 iabbrev ssig -- <cr>Justin Ramel<cr>justin.ramel@gmail.com
 
@@ -178,8 +173,8 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-" clear the search buffer when hitting return
-:nnoremap <cr> :nohlsearch<cr>
+" clear the search buffer when hitting escape
+:nnoremap <esc> :nohlsearch<cr>
 
 " mappings to paste and reformat/reindent
 :nnoremap <Esc>p  p'[v']=
@@ -212,7 +207,7 @@ endif
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Spelling
-nmap <silent> <leader>s :set spell!<CR>
+nmap <silent> <leader>spell :set spell!<CR>
 set spelllang=en_gb " Set region to British English
 set spellfile=~/.vim/spell/en.utf-8.add
 
