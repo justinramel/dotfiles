@@ -1,16 +1,3 @@
-inoremap <esc> <nop>
-inoremap <C-j> <esc>
-"inoremap jj <esc>
-"inoremap jk <esc>
-"inoremap kj <esc>
-"inoremap kk <esc>
-
-nnoremap <leader>vs :vsplit<cr><C-w>l " open a new vertical split and switch to it
-nnoremap <leader>hs :split<cr><C-w>j " open a new horizontial split and switch to it
-
-nnoremap <leader>one :on<cr>           " single page
-nnoremap <leader>two :vsplit<cr><C-w>l " split
-
 if has("win32")
   let $HOME = 'c:\vim'
 endif
@@ -32,7 +19,13 @@ Bundle 'xolox/vim-easytags'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'msanders/snipmate.vim'
+
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'honza/snipmate-snippets'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/snipmate-snippets'
+
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'endwise.vim'
@@ -45,6 +38,23 @@ Bundle 'vimwiki'
 Bundle 'The-NERD-Commenter'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'sjl/vitality.vim'
+
+" Key mappings
+let mapleader = " "   " redefine leader from default backslash
+inoremap <esc> <nop>
+
+" clear the search buffer when hitting escape
+nnoremap <esc> :nohlsearch<cr> 
+
+" quickly alternate between files
+nnoremap <c-j><c-j> <c-^>
+
+inoremap <C-j> <esc>  " use instead of esc key it's too far away on keyboard
+
+nnoremap <leader>vs :vsplit<cr><C-w>l " open a new vertical split and switch to it
+nnoremap <leader>hs :split<cr><C-w>j  " open a new horizontial split and switch to it
+nnoremap <leader>one :on<cr>           " single page
+nnoremap <leader>two :vsplit<cr><C-w>l " split
 
 " syntastic settings
 if !has("win32")
@@ -63,8 +73,6 @@ let g:VimuxUseNearestPane = 1
 
 " enable file type detection.
 filetype plugin indent on
-
-let mapleader = " "     " redefine leader from default backslash
 
 if has('gui_running')
   set guioptions=egmrt  " hide the gui menubar
@@ -153,9 +161,6 @@ let g:ctrlp_working_path_mode = 2
 let g:ctrlp_dotfiles = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*build/*,*resources/*
 
-" quickly alternate between files
-nnoremap <leader><leader> <c-^>
-
 " highlight tabs and trailing spaces
 if has("win32")
   set list listchars=tab:\>\¬,trail:·
@@ -173,11 +178,8 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-" clear the search buffer when hitting escape
-:nnoremap <esc> :nohlsearch<cr>
-
 " mappings to paste and reformat/reindent
-:nnoremap <Esc>p  p'[v']=
+nnoremap <Esc>p  p'[v']=
 
 " custom autocmds
 augroup vimrcEx
