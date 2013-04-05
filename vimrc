@@ -19,13 +19,11 @@ Bundle 'xolox/vim-easytags'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'ecomba/vim-ruby-refactoring'
-
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'honza/snipmate-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/snipmate-snippets'
-
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'endwise.vim'
@@ -37,19 +35,27 @@ Bundle 'benmills/vimux'
 Bundle 'vimwiki'
 Bundle 'The-NERD-Commenter'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'sjl/vitality.vim'
+Bundle 'jszakmeister/vim-togglecursor'
+Bundle 'tomtom/quickfixsigns_vim'
+Bundle 'godlygeek/tabular'
+Bundle 'sickill/vim-pasta'
 
 " Key mappings
-let mapleader = " "   " redefine leader from default backslash
-inoremap <esc> <nop>
+" redefine leader from default backslash
+let mapleader = " "
+"inoremap <esc> <nop>
+
+" use instead of esc key it's too far away on keyboard
+inoremap <c-i> <esc>
+
+" inserting commas in array
+inoremap ,, <esc>A, 
 
 " clear the search buffer when hitting escape
 nnoremap <esc> :nohlsearch<cr> 
 
 " quickly alternate between files
 nnoremap <c-j><c-j> <c-^>
-
-inoremap <C-j> <esc>  " use instead of esc key it's too far away on keyboard
 
 nnoremap <leader>vs :vsplit<cr><C-w>l " open a new vertical split and switch to it
 nnoremap <leader>hs :split<cr><C-w>j  " open a new horizontial split and switch to it
@@ -70,6 +76,27 @@ let g:syntastic_quiet_warnings=0      " show warning messages
 " vimux settings
 " don't create new windows re-use the nearest one
 let g:VimuxUseNearestPane = 1
+
+" tabular settings
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+ 
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 
 " enable file type detection.
 filetype plugin indent on
@@ -129,6 +156,8 @@ set ignorecase smartcase
 
 set noesckeys
 
+set updatetime=4000
+
 " abbreviations
 iabbrev ssig -- <cr>Justin Ramel<cr>justin.ramel@gmail.com
 
@@ -177,9 +206,6 @@ set noswapfile
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
-
-" mappings to paste and reformat/reindent
-nnoremap <Esc>p  p'[v']=
 
 " custom autocmds
 augroup vimrcEx
@@ -378,15 +404,6 @@ map <leader>ba :bufdo bd!<cr>
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
-
-" autocomplete common programming elements
-inoremap (( ()<esc>i
-inoremap [[ []<esc>i
-inoremap {{ {}<esc>i
-inoremap '' ''<esc>i
-inoremap "" ""<esc>i
-inoremap uu _
-inoremap ## #{}<esc>i
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
